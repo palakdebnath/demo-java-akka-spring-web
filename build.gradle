@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web") {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+		exclude group: 'org.hibernate', module: 'hibernate-validator'
+	} 
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb") {
+		exclude group: 'org.springframework', module: 'spring-context' 
+		exclude group: 'org.springframework', module: 'spring-beans' 
+		exclude group: 'org.springframework', module: 'spring-core' 
+		exclude group: 'org.springframework', module: 'spring-expression' 
+		exclude group: 'org.springframework', module: 'spring-' 
+	} 
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    compile("com.typesafe.akka:akka-actor_2.11:2.4.3")
+    compile("com.typesafe.akka:akka-slf4j_2.11:2.4.3")
+		
+}
+
+jar {
+	exclude()
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.11'
+}
